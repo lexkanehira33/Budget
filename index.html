@@ -178,9 +178,16 @@
   ::-webkit-scrollbar-track{background:var(--bg);}
   ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px;}
   @media(max-width:600px){
-    .bill-row,.bill-header{grid-template-columns:1fr 90px 90px 60px 30px;}
-    .tx-row,.tx-header{grid-template-columns:75px 1fr 100px 70px 44px 28px;}
     .stats{grid-template-columns:1fr 1fr;}
+    .page{padding:16px 10px;}
+    /* Bill/income rows - make fixed columns narrow, name gets remaining space */
+    .bill-row,.bill-header{grid-template-columns:1fr 76px 76px 54px 28px;gap:4px;padding:8px 10px;}
+    .income-row{grid-template-columns:1fr 76px 76px 54px 28px;gap:4px;padding:8px 10px;}
+    .bill-input{font-size:12px;padding:4px 5px;}
+    /* Tx rows */
+    .tx-row,.tx-header{grid-template-columns:62px 1fr 80px 60px 40px 26px;gap:4px;padding:8px 10px;}
+    /* One-off */
+    .oneoff-row,.oneoff-header{grid-template-columns:1fr 90px 28px;gap:4px;padding:8px 10px;}
   }
 </style>
 </head>
