@@ -18,7 +18,7 @@
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:14px;min-height:100vh;}
-  .nav{display:flex;gap:2px;padding:16px 20px 0;border-bottom:1px solid var(--border);background:var(--bg);position:sticky;top:0;z-index:100;}
+  .nav{display:flex;gap:2px;padding:16px 20px 0;border-bottom:1px solid var(--border);background:var(--bg);position:sticky;top:0;z-index:100;overflow-x:auto;}
   .nav-tab{padding:10px 18px;cursor:pointer;color:var(--text2);font-size:13px;font-weight:500;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color 0.15s;white-space:nowrap;}
   .nav-tab:hover{color:var(--text);}
   .nav-tab.active{color:var(--purple);border-bottom-color:var(--purple);}
@@ -63,17 +63,14 @@
   .add-btn{background:var(--purple3);border:1px solid var(--purple2);color:var(--purple);padding:7px 14px;border-radius:var(--radius-sm);cursor:pointer;font-size:13px;font-weight:500;white-space:nowrap;}
   .add-btn:hover{background:var(--purple2);color:#fff;}
 
-  /* Transactions — extra column for match toggle */
-  .tx-row{display:grid;grid-template-columns:90px 1fr 130px 80px 60px 32px;gap:6px;align-items:center;padding:9px 16px;border-bottom:1px solid var(--border);}
+  /* Transactions */
+  .tx-row{display:grid;grid-template-columns:90px 1fr 130px 80px 32px;gap:6px;align-items:center;padding:9px 16px;border-bottom:1px solid var(--border);}
   .tx-row:last-child{border-bottom:none;}
   .tx-row:hover{background:var(--bg3);}
-  .tx-header{display:grid;grid-template-columns:90px 1fr 130px 80px 60px 32px;gap:6px;padding:8px 16px;background:var(--bg3);}
+  .tx-header{display:grid;grid-template-columns:90px 1fr 130px 80px 32px;gap:6px;padding:8px 16px;background:var(--bg3);}
   .tx-input{background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:5px 8px;border-radius:var(--radius-sm);font-size:13px;width:100%;}
   .tx-input:focus{outline:none;border-color:var(--purple2);}
   .category-badge{font-size:11px;padding:2px 7px;border-radius:20px;background:var(--bg4);color:var(--text2);white-space:nowrap;display:inline-block;}
-  .match-toggle{display:flex;align-items:center;justify-content:center;cursor:pointer;}
-  .match-pill{font-size:10px;padding:2px 7px;border-radius:20px;border:1px solid var(--border2);color:var(--text3);background:var(--bg3);cursor:pointer;white-space:nowrap;transition:all 0.15s;}
-  .match-pill.on{background:var(--green-dim);border-color:var(--green);color:var(--green);}
 
   .income-row{display:grid;grid-template-columns:1fr 110px 110px 80px 36px;gap:8px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border);}
   .income-row:last-child{border-bottom:none;}
@@ -84,18 +81,10 @@
   .oneoff-header{display:grid;grid-template-columns:1fr 110px 36px;gap:8px;padding:8px 16px;background:var(--bg3);}
   .empty{padding:24px;text-align:center;color:var(--text3);font-size:13px;}
 
-  /* Savings match card */
-  .match-card{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius);padding:16px;margin-bottom:16px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
-  .match-card-left{flex:1;min-width:160px;}
-  .match-label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;}
-  .match-amount{font-size:28px;font-weight:600;color:var(--green);}
-  .match-sub{font-size:11px;color:var(--text3);margin-top:3px;}
-  .match-card-right{display:flex;flex-direction:column;gap:8px;align-items:flex-end;}
-  .transfer-btn{background:var(--green-dim);border:1px solid var(--green);color:var(--green);padding:8px 18px;border-radius:var(--radius-sm);cursor:pointer;font-size:13px;font-weight:500;}
-  .transfer-btn:hover{background:var(--green);color:#0d0d0f;}
-  .transfer-btn:disabled{opacity:0.3;cursor:default;}
-  .match-history{font-size:11px;color:var(--text3);text-align:right;}
-  .match-history-item{padding:2px 0;}
+  /* Category management */
+  .cat-row{display:grid;grid-template-columns:1fr 36px;gap:8px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border);}
+  .cat-row:last-child{border-bottom:none;}
+  .cat-row:hover{background:var(--bg3);}
 
   /* Goals */
   .goals-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:20px;}
@@ -174,6 +163,15 @@
   .tag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:20px;font-weight:500;}
   .tag-archived{background:var(--bg4);color:var(--text3);}
   .tag-active{background:var(--purple-dim);color:var(--purple);border:1px solid var(--purple3);}
+
+  /* Plan tab */
+  .plan-row{display:grid;grid-template-columns:1fr 110px 110px 90px 36px;gap:8px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border);}
+  .plan-row:last-child{border-bottom:none;}
+  .plan-row:hover{background:var(--bg3);}
+  .plan-header{display:grid;grid-template-columns:1fr 110px 110px 90px 36px;gap:8px;padding:8px 16px;background:var(--bg3);}
+  .plan-readonly{background:var(--bg2);border:1px solid var(--border);color:var(--text2);padding:5px 8px;border-radius:var(--radius-sm);font-size:13px;width:100%;}
+  .plan-note{font-size:11px;color:var(--text3);padding:8px 16px;font-style:italic;}
+
   ::-webkit-scrollbar{width:6px;}
   ::-webkit-scrollbar-track{background:var(--bg);}
   ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px;}
@@ -183,17 +181,21 @@
     /* Bill/income rows - make fixed columns narrow, name gets remaining space */
     .bill-row,.bill-header{grid-template-columns:1fr 76px 76px 54px 28px;gap:4px;padding:8px 10px;}
     .income-row{grid-template-columns:1fr 76px 76px 54px 28px;gap:4px;padding:8px 10px;}
+    .plan-row,.plan-header{grid-template-columns:1fr 70px 70px 60px 28px;gap:4px;padding:8px 10px;}
     .bill-input{font-size:12px;padding:4px 5px;}
     /* Tx rows */
-    .tx-row,.tx-header{grid-template-columns:62px 1fr 80px 60px 40px 26px;gap:4px;padding:8px 10px;}
+    .tx-row,.tx-header{grid-template-columns:62px 1fr 80px 60px 26px;gap:4px;padding:8px 10px;}
     /* One-off */
     .oneoff-row,.oneoff-header{grid-template-columns:1fr 90px 28px;gap:4px;padding:8px 10px;}
+    /* Categories */
+    .cat-row{grid-template-columns:1fr 28px;gap:4px;padding:8px 10px;}
   }
 </style>
 </head>
 <body>
 <nav class="nav">
   <div class="nav-tab active" onclick="switchTab('budget')">Budget</div>
+  <div class="nav-tab" onclick="switchTab('plan')">Plan</div>
   <div class="nav-tab" onclick="switchTab('trends')">Trends</div>
   <div class="nav-tab" onclick="switchTab('savings')">Savings Goals</div>
   <div class="nav-tab" onclick="switchTab('investing')">Investing</div>
@@ -275,16 +277,18 @@
     </div>
   </div>
 
-  <!-- Savings match card -->
-  <div class="match-card" id="match-card">
-    <div class="match-card-left">
-      <div class="match-label">Savings match pending</div>
-      <div class="match-amount" id="match-amount">$0.00</div>
-      <div class="match-sub" id="match-sub">Tag spending below as "match" to build this up</div>
+  <!-- Categories -->
+  <div class="section collapsed" id="sec-categories">
+    <div class="section-header" onclick="toggleSection('sec-categories')">
+      <div class="section-title">Spending categories <span id="categories-total-label"></span></div>
+      <span class="collapse-icon">&#9660;</span>
     </div>
-    <div class="match-card-right">
-      <button class="transfer-btn" id="transfer-btn" onclick="markTransferred()" disabled>Mark as transferred</button>
-      <div class="match-history" id="match-history"></div>
+    <div class="section-body">
+      <div id="category-rows"></div>
+      <div class="add-row">
+        <input class="add-input" id="new-category-name" placeholder="New category name" />
+        <button class="add-btn" onclick="addCategory()">+ Add</button>
+      </div>
     </div>
   </div>
 
@@ -300,22 +304,84 @@
         <div class="bill-header-label">Description</div>
         <div class="bill-header-label">Category</div>
         <div class="bill-header-label">Amount</div>
-        <div class="bill-header-label">Match</div>
         <div></div>
       </div>
       <div id="tx-rows"></div>
       <div class="add-row">
         <input class="add-input" id="new-tx-date" type="date" style="max-width:130px" />
         <input class="add-input" id="new-tx-desc" placeholder="Description" />
-        <select id="new-tx-cat" style="flex:1;min-width:110px;">
-          <option>Groceries</option><option>Gas</option><option>Subscriptions</option>
-          <option>Health</option><option>Beauty</option><option>Toiletries</option>
-          <option>School Supplies</option><option>House Supplies</option>
-          <option>Eating Out</option><option>Entertainment</option>
-          <option>Drinking Out</option><option>Travel</option><option>Other</option>
-        </select>
+        <select id="new-tx-cat" style="flex:1;min-width:110px;"></select>
         <input class="add-input" id="new-tx-amount" placeholder="$" type="number" style="max-width:80px" />
         <button class="add-btn" onclick="addTransaction()">+ Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PLAN TAB -->
+<div class="page" id="page-plan">
+  <div class="month-bar">
+    <button class="month-nav" onclick="changeMonth(-1)">&#8592;</button>
+    <h2 id="plan-month-display"></h2>
+    <button class="month-nav" onclick="changeMonth(1)">&#8594;</button>
+  </div>
+  <div class="stats" id="plan-stats"></div>
+
+  <div class="section" id="sec-plan-income">
+    <div class="section-header" onclick="toggleSection('sec-plan-income')">
+      <div class="section-title">Income <span id="plan-income-total-label"></span></div>
+      <span class="collapse-icon">&#9660;</span>
+    </div>
+    <div class="section-body">
+      <div class="plan-note">Pulled from Income on the Budget tab — edit sources there.</div>
+      <div class="plan-header">
+        <div class="bill-header-label">Source</div>
+        <div class="bill-header-label">Budgeted</div>
+        <div class="bill-header-label">Actual</div>
+        <div class="bill-header-label">Variance</div>
+        <div></div>
+      </div>
+      <div id="plan-income-rows"></div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-plan-bills">
+    <div class="section-header" onclick="toggleSection('sec-plan-bills')">
+      <div class="section-title">Bills <span id="plan-bills-total-label"></span></div>
+      <span class="collapse-icon">&#9660;</span>
+    </div>
+    <div class="section-body">
+      <div class="plan-note">Pulled from Recurring Bills on the Budget tab — mark bills paid there and it reflects here.</div>
+      <div class="plan-header">
+        <div class="bill-header-label">Bill</div>
+        <div class="bill-header-label">Budgeted</div>
+        <div class="bill-header-label">Actual</div>
+        <div class="bill-header-label">Variance</div>
+        <div></div>
+      </div>
+      <div id="plan-bills-rows"></div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-plan-categories">
+    <div class="section-header" onclick="toggleSection('sec-plan-categories')">
+      <div class="section-title">Category budgets <span id="plan-cat-total-label"></span></div>
+      <span class="collapse-icon">&#9660;</span>
+    </div>
+    <div class="section-body">
+      <div class="plan-note">Set what you intend to spend per category. Actual fills in automatically as you log spending on the Budget tab.</div>
+      <div class="plan-header">
+        <div class="bill-header-label">Category</div>
+        <div class="bill-header-label">Budgeted</div>
+        <div class="bill-header-label">Actual</div>
+        <div class="bill-header-label">Variance</div>
+        <div></div>
+      </div>
+      <div id="plan-cat-rows"></div>
+      <div class="add-row">
+        <select id="new-plan-cat" style="flex:2;min-width:140px;"></select>
+        <input class="add-input" id="new-plan-cat-amount" placeholder="Budgeted $" type="number" style="max-width:120px" />
+        <button class="add-btn" onclick="addPlanCategory()">+ Add</button>
       </div>
     </div>
   </div>
@@ -423,13 +489,13 @@
 </div>
 
 <script>
-const CATEGORIES = ['Groceries','Gas','Subscriptions','Health','Beauty','Toiletries','School Supplies','House Supplies','Eating Out','Entertainment','Drinking Out','Travel','Other'];
+const DEFAULT_CATEGORIES = ['Groceries','Gas','Subscriptions','Health','Beauty','Toiletries','School Supplies','House Supplies','Eating Out','Entertainment','Drinking Out','Travel','Other'];
 
 let currentDate = new Date();
 let currentMonth = currentDate.getMonth();
 let currentYear = currentDate.getFullYear();
-let depositTargetGoalId = null;
 let editingGoalId = null;
+let depositTargetGoalId = null;
 let trendRange = 'week';
 let customFrom = null, customTo = null;
 
@@ -455,6 +521,7 @@ function load(key,def){try{const v=localStorage.getItem(key);return v?JSON.parse
 function save(key,val){localStorage.setItem(key,JSON.stringify(val));}
 function fmt(n){return '$'+Math.abs(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
 function monthKey(){return `${currentYear}-${String(currentMonth+1).padStart(2,'0')}`;}
+function getCategories(){return load('budget_categories',DEFAULT_CATEGORIES);}
 
 // --- Week helpers (Mon–Sun) ---
 function getWeekBounds(d){
@@ -549,20 +616,19 @@ function renderBudget(){
   }).join('')||'<div class="empty">No one-time expenses this month.</div>';
   document.getElementById('oneoff-total-label').textContent=ooTotal>0?`— ${fmt(ooTotal)}`:'';
 
-  // Savings match
-  renderMatchCard(txs);
+  // Categories
+  renderCategoryList();
+  populateCategorySelects();
 
   // Transactions
   let txTotal=0;
   document.getElementById('tx-rows').innerHTML=[...txs].reverse().map(tx=>{
     txTotal+=parseFloat(tx.amount)||0;
-    const isMatch=tx.match===true;
-    return `<div class="tx-row ${isMatch?'':''}">
+    return `<div class="tx-row">
       <div style="font-size:12px;color:var(--text3)">${tx.date.slice(5)}</div>
       <div style="font-size:13px">${tx.desc}</div>
       <div><span class="category-badge">${tx.cat}</span></div>
       <div style="font-size:13px">${fmt(tx.amount)}</div>
-      <div class="match-toggle"><span class="match-pill ${isMatch?'on':''}" onclick="toggleMatch('${tx.id}')">${isMatch?'✓ match':'match'}</span></div>
       <button class="delete-btn" onclick="deleteTx('${tx.id}')">&#10005;</button>
     </div>`;
   }).join('')||'<div class="empty">No spending logged yet.</div>';
@@ -582,41 +648,56 @@ function renderBudget(){
   if(!dateInput.value) dateInput.value=new Date().toISOString().slice(0,10);
 }
 
-function renderMatchCard(txs){
-  const matchTotal=txs.filter(t=>t.match===true).reduce((a,t)=>a+(parseFloat(t.amount)||0),0);
-  const transfers=load('budget_match_transfers',[]);
-  document.getElementById('match-amount').textContent=fmt(matchTotal);
-  document.getElementById('match-sub').textContent=matchTotal>0?`Dollar-for-dollar match ready to transfer`:`Tag spending as "match" to build this up`;
-  const btn=document.getElementById('transfer-btn');
-  btn.disabled=matchTotal===0;
-
-  const recent=transfers.slice(-3).reverse();
-  document.getElementById('match-history').innerHTML=recent.length?
-    recent.map(t=>`<div class="match-history-item">${fmt(t.amount)} transferred ${new Date(t.date).toLocaleDateString('en-US',{month:'short',day:'numeric'})}</div>`).join('')
-    :'<div class="match-history-item" style="color:var(--text3)">No transfers yet</div>';
+// --- Category management ---
+function renderCategoryList(){
+  const cats=getCategories();
+  document.getElementById('category-rows').innerHTML=cats.map((c,i)=>`
+    <div class="cat-row">
+      <input class="bill-input" value="${c}" onchange="renameCategory(${i},this.value)" />
+      <button class="delete-btn" onclick="deleteCategory(${i})">&#10005;</button>
+    </div>`).join('')||'<div class="empty">No categories yet.</div>';
+  document.getElementById('categories-total-label').textContent=`— ${cats.length}`;
 }
-
-function toggleMatch(txId){
+function populateCategorySelects(){
+  const cats=getCategories();
+  const opts=cats.map(c=>`<option value="${c}">${c}</option>`).join('');
+  const txSel=document.getElementById('new-tx-cat');
+  const planSel=document.getElementById('new-plan-cat');
+  if(txSel){const prev=txSel.value;txSel.innerHTML=opts;if(cats.includes(prev))txSel.value=prev;}
+  if(planSel){const prev=planSel.value;planSel.innerHTML=opts;if(cats.includes(prev))planSel.value=prev;}
+}
+function addCategory(){
+  const input=document.getElementById('new-category-name');
+  const name=input.value.trim();
+  if(!name)return;
+  const cats=getCategories();
+  if(cats.some(c=>c.toLowerCase()===name.toLowerCase())){input.value='';return;}
+  cats.push(name);save('budget_categories',cats);
+  input.value='';renderCategoryList();populateCategorySelects();
+}
+function renameCategory(index,newName){
+  newName=newName.trim();
+  if(!newName)return;
+  const cats=getCategories();
+  const oldName=cats[index];
+  if(!oldName||oldName===newName)return;
+  cats[index]=newName;save('budget_categories',cats);
+  // propagate rename to existing transactions and plan category budgets
   const txs=load('budget_tx',[]);
-  const tx=txs.find(t=>t.id===txId);
-  if(tx){tx.match=!tx.match;save('budget_tx',txs);renderBudget();}
+  txs.forEach(t=>{if(t.cat===oldName)t.cat=newName;});
+  save('budget_tx',txs);
+  const planCats=load('budget_plan_categories',[]);
+  planCats.forEach(p=>{if(p.category===oldName)p.category=newName;});
+  save('budget_plan_categories',planCats);
+  renderCategoryList();populateCategorySelects();renderBudget();
 }
-
-function markTransferred(){
-  const mk=monthKey();
-  const allTx=load('budget_tx',[]);
-  const txs=allTx.filter(t=>t.date&&t.date.startsWith(mk));
-  const matchTotal=txs.filter(t=>t.match===true).reduce((a,t)=>a+(parseFloat(t.amount)||0),0);
-  if(matchTotal===0)return;
-  // Log the transfer
-  const transfers=load('budget_match_transfers',[]);
-  transfers.push({id:'tr'+Date.now(),amount:matchTotal,date:Date.now(),month:mk});
-  save('budget_match_transfers',transfers);
-  // Clear match flags for this month's txs and add a savings transfer entry
-  allTx.forEach(t=>{if(t.date&&t.date.startsWith(mk))t.match=false;});
-  allTx.push({id:'t'+Date.now(),date:new Date().toISOString().slice(0,10),desc:'Savings match transfer',cat:'Other',amount:matchTotal,match:false,isTransfer:true});
-  save('budget_tx',allTx);
-  renderBudget();
+function deleteCategory(index){
+  const cats=getCategories();
+  const name=cats[index];
+  if(!name)return;
+  if(!confirm(`Delete "${name}"? Existing transactions keep their category label, but it won't be selectable for new entries.`))return;
+  cats.splice(index,1);save('budget_categories',cats);
+  renderCategoryList();populateCategorySelects();
 }
 
 // Bill/income CRUD
@@ -665,16 +746,120 @@ function addTransaction(){
   const cat=document.getElementById('new-tx-cat').value;
   const amount=parseFloat(document.getElementById('new-tx-amount').value)||0;
   if(!desc||!amount||!date)return;
-  const txs=load('budget_tx',[]);txs.push({id:'t'+Date.now(),date,desc,cat,amount,match:false});save('budget_tx',txs);
+  const txs=load('budget_tx',[]);txs.push({id:'t'+Date.now(),date,desc,cat,amount});save('budget_tx',txs);
   document.getElementById('new-tx-desc').value='';document.getElementById('new-tx-amount').value='';renderBudget();
 }
 function changeMonth(dir){
   currentMonth+=dir;
   if(currentMonth>11){currentMonth=0;currentYear++;}
   if(currentMonth<0){currentMonth=11;currentYear--;}
-  renderBudget();
+  const budgetActive=document.getElementById('page-budget').classList.contains('active');
+  const planActive=document.getElementById('page-plan').classList.contains('active');
+  if(budgetActive)renderBudget();
+  if(planActive)renderPlan();
 }
 function toggleSection(id){document.getElementById(id).classList.toggle('collapsed');}
+
+// --- PLAN TAB ---
+function renderPlan(){
+  const mk=monthKey();
+  document.getElementById('plan-month-display').textContent=new Date(currentYear,currentMonth).toLocaleString('default',{month:'long',year:'numeric'});
+
+  const income=load('budget_income',DEFAULT_INCOME);
+  const incomeActuals=load(`actuals_income_${mk}`,{});
+  const bills=load('budget_bills',DEFAULT_BILLS);
+  const billActuals=load(`actuals_bills_${mk}`,{});
+  const allTx=load('budget_tx',[]);
+  const txs=allTx.filter(t=>t.date&&t.date.startsWith(mk));
+  const planCats=load('budget_plan_categories',[]);
+
+  // Income
+  let incBudgeted=0,incActual=0;
+  document.getElementById('plan-income-rows').innerHTML=income.map(inc=>{
+    const budgeted=parseFloat(inc.expected)||0;
+    const actRaw=incomeActuals[inc.id];
+    const act=actRaw!==undefined?parseFloat(actRaw):null;
+    const v=act!==null?act-budgeted:null;
+    incBudgeted+=budgeted;incActual+=(act!==null?act:0);
+    return `<div class="plan-row">
+      <div class="bill-name">${inc.name}</div>
+      <div class="plan-readonly">${fmt(budgeted)}</div>
+      <div class="plan-readonly">${act!==null?fmt(act):'—'}</div>
+      <div class="bill-variance ${v===null?'':(v>=0?'positive':'negative')}">${v===null?'—':(v>=0?'+':'')+fmt(v)}</div>
+      <div></div>
+    </div>`;
+  }).join('')||'<div class="empty">No income sources. Add them on the Budget tab.</div>';
+  document.getElementById('plan-income-total-label').textContent=`— ${fmt(incBudgeted)} budgeted`;
+
+  // Bills
+  let billBudgeted=0,billActual=0;
+  document.getElementById('plan-bills-rows').innerHTML=bills.map(bill=>{
+    const budgeted=parseFloat(bill.expected)||0;
+    const actRaw=billActuals[bill.id];
+    const act=actRaw!==undefined?parseFloat(actRaw):null;
+    const v=act!==null?act-budgeted:null;
+    billBudgeted+=budgeted;billActual+=(act!==null?act:0);
+    return `<div class="plan-row">
+      <div class="bill-name">${bill.name}</div>
+      <div class="plan-readonly">${fmt(budgeted)}</div>
+      <div class="plan-readonly">${act!==null?fmt(act):'—'}</div>
+      <div class="bill-variance ${v===null?'':(v<=0?'positive':'negative')}">${v===null?'—':(v>=0?'+':'')+fmt(v)}</div>
+      <div></div>
+    </div>`;
+  }).join('')||'<div class="empty">No bills. Add them on the Budget tab.</div>';
+  document.getElementById('plan-bills-total-label').textContent=`— ${fmt(billBudgeted)} budgeted`;
+
+  // Category budgets — actual computed live from this month's transactions
+  let catBudgeted=0,catActual=0;
+  document.getElementById('plan-cat-rows').innerHTML=planCats.map(p=>{
+    const budgeted=parseFloat(p.amount)||0;
+    const act=txs.filter(t=>t.cat===p.category).reduce((a,t)=>a+(parseFloat(t.amount)||0),0);
+    const v=act-budgeted;
+    catBudgeted+=budgeted;catActual+=act;
+    return `<div class="plan-row">
+      <div class="bill-name">${p.category}</div>
+      <input class="bill-input" type="number" value="${budgeted}" onchange="updatePlanCategoryAmount('${p.id}',this.value)" />
+      <div class="plan-readonly">${fmt(act)}</div>
+      <div class="bill-variance ${v<=0?'positive':'negative'}">${(v>=0?'+':'')+fmt(v)}</div>
+      <button class="delete-btn" onclick="deletePlanCategory('${p.id}')">&#10005;</button>
+    </div>`;
+  }).join('')||'<div class="empty">No category budgets set yet. Add one below.</div>';
+  document.getElementById('plan-cat-total-label').textContent=`— ${fmt(catBudgeted)} budgeted`;
+
+  // Stats
+  const totalBudgetedOut=billBudgeted+catBudgeted;
+  const totalActualOut=billActual+catActual;
+  const projectedRemaining=incBudgeted-totalBudgetedOut;
+  const actualRemaining=incActual-totalActualOut;
+  document.getElementById('plan-stats').innerHTML=`
+    <div class="stat"><div class="stat-label">Budgeted income</div><div class="stat-value positive">${fmt(incBudgeted)}</div><div class="stat-sub">${fmt(incActual)} actual so far</div></div>
+    <div class="stat"><div class="stat-label">Budgeted out</div><div class="stat-value">${fmt(totalBudgetedOut)}</div><div class="stat-sub">${fmt(totalActualOut)} actual so far</div></div>
+    <div class="stat highlight"><div class="stat-label">Projected balance</div><div class="stat-value ${projectedRemaining>=0?'positive':'negative'}">${fmt(projectedRemaining)}</div><div class="stat-sub">if everything lands as planned</div></div>
+    <div class="stat"><div class="stat-label">Actual balance so far</div><div class="stat-value ${actualRemaining>=0?'positive':'negative'}">${fmt(actualRemaining)}</div><div class="stat-sub">based on what's posted</div></div>
+  `;
+
+  populateCategorySelects();
+}
+function addPlanCategory(){
+  const category=document.getElementById('new-plan-cat').value;
+  const amount=parseFloat(document.getElementById('new-plan-cat-amount').value)||0;
+  if(!category)return;
+  const planCats=load('budget_plan_categories',[]);
+  if(planCats.some(p=>p.category===category)){document.getElementById('new-plan-cat-amount').value='';return;}
+  planCats.push({id:'pc'+Date.now(),category,amount});
+  save('budget_plan_categories',planCats);
+  document.getElementById('new-plan-cat-amount').value='';
+  renderPlan();
+}
+function updatePlanCategoryAmount(id,val){
+  const planCats=load('budget_plan_categories',[]);
+  const x=planCats.find(p=>p.id===id);
+  if(x){x.amount=parseFloat(val)||0;save('budget_plan_categories',planCats);renderPlan();}
+}
+function deletePlanCategory(id){
+  save('budget_plan_categories',load('budget_plan_categories',[]).filter(p=>p.id!==id));
+  renderPlan();
+}
 
 // --- TRENDS TAB ---
 let chartCat,chartMonthly,chartOverview;
@@ -698,11 +883,12 @@ function renderTrends(){
   document.getElementById('trends-period-label').textContent=label;
 
   const allTx=load('budget_tx',[]);
-  const txs=allTx.filter(t=>t.date&&txInRange(t,from,to)&&!t.isTransfer);
+  const txs=allTx.filter(t=>t.date&&txInRange(t,from,to));
 
   // Category doughnut
+  const cats=getCategories();
   const catTotals={};
-  CATEGORIES.forEach(c=>catTotals[c]=0);
+  cats.forEach(c=>catTotals[c]=0);
   txs.forEach(t=>{catTotals[t.cat]=(catTotals[t.cat]||0)+parseFloat(t.amount);});
   const catLabels=Object.keys(catTotals).filter(k=>catTotals[k]>0);
   const catVals=catLabels.map(k=>+catTotals[k].toFixed(2));
@@ -772,7 +958,7 @@ function renderTrends(){
     months.push({label:d.toLocaleString('default',{month:'short'}),key:`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`});
   }
   const monthlySpend=months.map(m=>{
-    const mt=allTx.filter(t=>t.date&&t.date.startsWith(m.key)&&!t.isTransfer);
+    const mt=allTx.filter(t=>t.date&&t.date.startsWith(m.key));
     const oo=load('budget_oneoffs',[]).filter(o=>o.month===m.key);
     return +(mt.reduce((a,t)=>a+parseFloat(t.amount),0)+oo.reduce((a,o)=>a+parseFloat(o.amount),0)).toFixed(2);
   });
@@ -908,9 +1094,10 @@ function switchTab(tab){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
   document.getElementById('page-'+tab).classList.add('active');
-  const map={budget:0,trends:1,savings:2,investing:3};
+  const map={budget:0,plan:1,trends:2,savings:3,investing:4};
   document.querySelectorAll('.nav-tab')[map[tab]].classList.add('active');
   if(tab==='budget')renderBudget();
+  if(tab==='plan')renderPlan();
   if(tab==='trends')renderTrends();
   if(tab==='savings')renderGoals();
   if(tab==='investing')renderInvesting();
