@@ -333,7 +333,7 @@
       <span class="collapse-icon">&#9660;</span>
     </div>
     <div class="section-body">
-      <div class="plan-note">Pulled from Income on the Budget tab — edit sources there.</div>
+      <div class="plan-note">Editing here updates the same income sources on the Budget tab, and carries forward as your default every month.</div>
       <div class="plan-header">
         <div class="bill-header-label">Source</div>
         <div class="bill-header-label">Budgeted</div>
@@ -342,6 +342,11 @@
         <div></div>
       </div>
       <div id="plan-income-rows"></div>
+      <div class="add-row">
+        <input class="add-input" id="new-plan-income-name" placeholder="Source" />
+        <input class="add-input" id="new-plan-income-expected" placeholder="Budgeted $" type="number" style="max-width:120px" />
+        <button class="add-btn" onclick="addIncomeFromPlan()">+ Add</button>
+      </div>
     </div>
   </div>
 
@@ -351,7 +356,7 @@
       <span class="collapse-icon">&#9660;</span>
     </div>
     <div class="section-body">
-      <div class="plan-note">Pulled from Recurring Bills on the Budget tab — mark bills paid there and it reflects here.</div>
+      <div class="plan-note">Edit budgeted amounts or add bills here — changes update the Budget tab too and become the default going forward every month. Mark bills paid on the Budget tab to see actuals here.</div>
       <div class="plan-header">
         <div class="bill-header-label">Bill</div>
         <div class="bill-header-label">Budgeted</div>
@@ -360,6 +365,11 @@
         <div></div>
       </div>
       <div id="plan-bills-rows"></div>
+      <div class="add-row">
+        <input class="add-input" id="new-plan-bill-name" placeholder="Bill name" />
+        <input class="add-input" id="new-plan-bill-expected" placeholder="Budgeted $" type="number" style="max-width:120px" />
+        <button class="add-btn" onclick="addBillFromPlan()">+ Add</button>
+      </div>
     </div>
   </div>
 
@@ -704,18 +714,18 @@ function deleteCategory(index){
 function setBillActual(id,mk,val){
   const a=load(`actuals_bills_${mk}`,{});
   if(val===''||val===null)delete a[id];else a[id]=parseFloat(val);
-  save(`actuals_bills_${mk}`,a);renderBudget();
+  save(`actuals_bills_${mk}`,a);refreshAll();
 }
 function setIncomeActual(id,mk,val){
   const a=load(`actuals_income_${mk}`,{});
   if(val===''||val===null)delete a[id];else a[id]=parseFloat(val);
-  save(`actuals_income_${mk}`,a);renderBudget();
+  save(`actuals_income_${mk}`,a);refreshAll();
 }
-function updateBillExpected(id,val){const b=load('budget_bills',DEFAULT_BILLS);const x=b.find(x=>x.id===id);if(x){x.expected=parseFloat(val)||0;save('budget_bills',b);renderBudget();}}
-function updateIncomeExpected(id,val){const i=load('budget_income',DEFAULT_INCOME);const x=i.find(x=>x.id===id);if(x){x.expected=parseFloat(val)||0;save('budget_income',i);renderBudget();}}
-function renameBill(id,name){const b=load('budget_bills',DEFAULT_BILLS);const x=b.find(x=>x.id===id);if(x){x.name=name;save('budget_bills',b);}}
-function deleteBill(id){save('budget_bills',load('budget_bills',DEFAULT_BILLS).filter(b=>b.id!==id));renderBudget();}
-function deleteIncome(id){save('budget_income',load('budget_income',DEFAULT_INCOME).filter(i=>i.id!==id));renderBudget();}
+function updateBillExpected(id,val){const b=load('budget_bills',DEFAULT_BILLS);const x=b.find(x=>x.id===id);if(x){x.expected=parseFloat(val)||0;save('budget_bills',b);refreshAll();}}
+function updateIncomeExpected(id,val){const i=load('budget_income',DEFAULT_INCOME);const x=i.find(x=>x.id===id);if(x){x.expected=parseFloat(val)||0;save('budget_income',i);refreshAll();}}
+function renameBill(id,name){const b=load('budget_bills',DEFAULT_BILLS);const x=b.find(x=>x.id===id);if(x){x.name=name;save('budget_bills',b);refreshAll();}}
+function deleteBill(id){save('budget_bills',load('budget_bills',DEFAULT_BILLS).filter(b=>b.id!==id));refreshAll();}
+function deleteIncome(id){save('budget_income',load('budget_income',DEFAULT_INCOME).filter(i=>i.id!==id));refreshAll();}
 function deleteOneOff(id){save('budget_oneoffs',load('budget_oneoffs',[]).filter(o=>o.id!==id));renderBudget();}
 function deleteTx(id){save('budget_tx',load('budget_tx',[]).filter(t=>t.id!==id));renderBudget();}
 
@@ -724,14 +734,14 @@ function addBill(){
   const expected=parseFloat(document.getElementById('new-bill-expected').value)||0;
   if(!name)return;
   const b=load('budget_bills',DEFAULT_BILLS);b.push({id:'b'+Date.now(),name,expected});save('budget_bills',b);
-  document.getElementById('new-bill-name').value='';document.getElementById('new-bill-expected').value='';renderBudget();
+  document.getElementById('new-bill-name').value='';document.getElementById('new-bill-expected').value='';refreshAll();
 }
 function addIncomeSource(){
   const name=document.getElementById('new-income-name').value.trim();
   const expected=parseFloat(document.getElementById('new-income-expected').value)||0;
   if(!name)return;
   const i=load('budget_income',DEFAULT_INCOME);i.push({id:'i'+Date.now(),name,expected});save('budget_income',i);
-  document.getElementById('new-income-name').value='';document.getElementById('new-income-expected').value='';renderBudget();
+  document.getElementById('new-income-name').value='';document.getElementById('new-income-expected').value='';refreshAll();
 }
 function addOneOff(){
   const desc=document.getElementById('new-oneoff-name').value.trim();
@@ -760,6 +770,11 @@ function changeMonth(dir){
 }
 function toggleSection(id){document.getElementById(id).classList.toggle('collapsed');}
 
+function refreshAll(){
+  if(document.getElementById('page-budget').classList.contains('active'))renderBudget();
+  if(document.getElementById('page-plan').classList.contains('active'))renderPlan();
+}
+
 // --- PLAN TAB ---
 function renderPlan(){
   const mk=monthKey();
@@ -783,12 +798,12 @@ function renderPlan(){
     incBudgeted+=budgeted;incActual+=(act!==null?act:0);
     return `<div class="plan-row">
       <div class="bill-name">${inc.name}</div>
-      <div class="plan-readonly">${fmt(budgeted)}</div>
+      <input class="bill-input" type="number" value="${budgeted}" onchange="updateIncomeExpected('${inc.id}',this.value)" />
       <div class="plan-readonly">${act!==null?fmt(act):'—'}</div>
       <div class="bill-variance ${v===null?'':(v>=0?'positive':'negative')}">${v===null?'—':(v>=0?'+':'')+fmt(v)}</div>
-      <div></div>
+      <button class="delete-btn" onclick="deleteIncome('${inc.id}')">&#10005;</button>
     </div>`;
-  }).join('')||'<div class="empty">No income sources. Add them on the Budget tab.</div>';
+  }).join('')||'<div class="empty">No income sources yet. Add one below.</div>';
   document.getElementById('plan-income-total-label').textContent=`— ${fmt(incBudgeted)} budgeted`;
 
   // Bills
@@ -800,13 +815,13 @@ function renderPlan(){
     const v=act!==null?act-budgeted:null;
     billBudgeted+=budgeted;billActual+=(act!==null?act:0);
     return `<div class="plan-row">
-      <div class="bill-name">${bill.name}</div>
-      <div class="plan-readonly">${fmt(budgeted)}</div>
+      <input class="bill-input" value="${bill.name}" onchange="renameBill('${bill.id}',this.value)" />
+      <input class="bill-input" type="number" value="${budgeted}" onchange="updateBillExpected('${bill.id}',this.value)" />
       <div class="plan-readonly">${act!==null?fmt(act):'—'}</div>
       <div class="bill-variance ${v===null?'':(v<=0?'positive':'negative')}">${v===null?'—':(v>=0?'+':'')+fmt(v)}</div>
-      <div></div>
+      <button class="delete-btn" onclick="deleteBill('${bill.id}')">&#10005;</button>
     </div>`;
-  }).join('')||'<div class="empty">No bills. Add them on the Budget tab.</div>';
+  }).join('')||'<div class="empty">No bills yet. Add one below.</div>';
   document.getElementById('plan-bills-total-label').textContent=`— ${fmt(billBudgeted)} budgeted`;
 
   // Category budgets — actual computed live from this month's transactions
@@ -859,6 +874,22 @@ function updatePlanCategoryAmount(id,val){
 function deletePlanCategory(id){
   save('budget_plan_categories',load('budget_plan_categories',[]).filter(p=>p.id!==id));
   renderPlan();
+}
+function addBillFromPlan(){
+  const name=document.getElementById('new-plan-bill-name').value.trim();
+  const expected=parseFloat(document.getElementById('new-plan-bill-expected').value)||0;
+  if(!name)return;
+  const b=load('budget_bills',DEFAULT_BILLS);b.push({id:'b'+Date.now(),name,expected});save('budget_bills',b);
+  document.getElementById('new-plan-bill-name').value='';document.getElementById('new-plan-bill-expected').value='';
+  refreshAll();
+}
+function addIncomeFromPlan(){
+  const name=document.getElementById('new-plan-income-name').value.trim();
+  const expected=parseFloat(document.getElementById('new-plan-income-expected').value)||0;
+  if(!name)return;
+  const i=load('budget_income',DEFAULT_INCOME);i.push({id:'i'+Date.now(),name,expected});save('budget_income',i);
+  document.getElementById('new-plan-income-name').value='';document.getElementById('new-plan-income-expected').value='';
+  refreshAll();
 }
 
 // --- TRENDS TAB ---
